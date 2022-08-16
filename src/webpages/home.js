@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [aPostHasBeenDeleted, setAPostHasBeenDeleted] = useState(false); 
+    const [aPostHasBeenDeleted, setAPostHasBeenDeleted] = useState(false);
     const [posts, setPosts] = useState([]);
 
     const fetchBlogPosts = async () => {
@@ -20,11 +20,11 @@ const Home = () => {
 
     useEffect(() => {
         fetchBlogPosts()
-            .then(data => {
+            .then((data) => {
                 setIsLoaded(true);
                 setPosts(data);
             })
-            .catch(error => setError(error.message));
+            .catch((error) => setError(error.message));
     }, []);
 
     const deleteBlogPost = async (id) => {
@@ -35,19 +35,19 @@ const Home = () => {
         const data = await response.json();
 
         return data;
-    }
+    };
 
     const deletePostHandler = (id) => {
         // Delete request with the given post id
-        deleteBlogPost(id).then(data => {
-            setPosts(prevPosts => {
-                return prevPosts.filter(prevPost => prevPost.id !== id);
-            })
+        deleteBlogPost(id).then((data) => {
+            setPosts((prevPosts) => {
+                return prevPosts.filter((prevPost) => prevPost.id !== id);
+            });
             setAPostHasBeenDeleted(true);
             setTimeout(() => {
                 setAPostHasBeenDeleted(false); //
-            }, 2000)
-        })
+            }, 2000);
+        });
     };
 
     const updatePostHandler = (post) => {

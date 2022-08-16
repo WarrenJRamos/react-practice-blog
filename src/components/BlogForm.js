@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const BlogForm = () => {
+    const [blogPostWasCreated, setBlogPostWasCreated] = useState(false);
     const [formInputsValidity, setFormInputsValidity] = useState({
         title: true,
         description: true,
@@ -13,7 +15,22 @@ const BlogForm = () => {
 
     // Returns true if input passes validation logic
     const validate = (input) => {
-        return !!input.value;
+        return input.value !== "";
+    };
+
+    const postBlogPost = async (formData) => {
+        console.log(formData);
+        const response = await fetch("http://localhost:3333/posts/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        return data;
     };
 
     const onSubmitHandler = (event) => {
@@ -44,7 +61,18 @@ const BlogForm = () => {
         }
 
         // FIXME: Replace with submit logic which does a POST request
-        console.log("Submitted the form");
+        postBlogPost({
+            title: enteredTitle,
+            description: enteredDescription,
+            link: enteredLink,
+        })
+            .then((data) => {
+                console.log("Successfully created a blog post");
+                setBlogPostWasCreated(true);
+            })
+            .catch((error) => {
+                console.log("Couldn't create a blog post");
+            });
     };
 
     const titleControlClasses = `control ${
@@ -56,6 +84,10 @@ const BlogForm = () => {
     const linkControlClasses = `control ${
         formInputsValidity.link ? "" : "invalid"
     }`;
+
+    if (blogPostWasCreated) {
+        return <p>You successfully created a post!</p>;
+    }
 
     return (
         <form className="" onSubmit={onSubmitHandler}>
@@ -92,7 +124,7 @@ const BlogForm = () => {
                     id="link"
                     name="link"
                     type="text"
-                    placeholder="Link"
+                    defaultValue="https://picsum.photos/200/300"
                     ref={linkInputRef}
                 />
                 {!formInputsValidity.link && (
