@@ -22,19 +22,35 @@ const Home = () => {
             );
     }, []);
 
+    const deletePostHandler = (id) => {
+        // Delete request with the given post id
+    }
+
+    const updatePostHandler = (post) => {
+        // Patch request to post with the given id
+    }
+
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
         return (
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        <Link to={`user/${user.id}`}>{user.name}</Link>
-                    </li>
-                ))}
-            </ul>
+            <>
+                <header>
+                    <h1>Warren's Blog</h1>
+                </header>
+                <Link to={`create-post/`}>Create Post</Link>
+                <ul>
+                    {users.map((user) => (
+                        <li key={user.id}>
+                            <Link to={`user/${user.id}`}>{user.name}</Link>
+                            <button type="button" onClick={() => deletePostHandler(5)}>DELETE</button>
+                            <Link to={'update-post/:id'}>UPDATE</Link>
+                        </li>
+                    ))}
+                </ul>
+            </>
         );
     }
 };
