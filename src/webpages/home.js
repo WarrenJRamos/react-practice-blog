@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [users, setUsers] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/users/")
+        fetch("http://localhost:3333/posts/")
             .then((res) => res.json())
             .then(
                 (data) => {
                     setIsLoaded(true);
-                    setUsers(data);
+                    setPosts(data);
                 },
                 (error) => {
                     setIsLoaded(true);
@@ -42,10 +42,14 @@ const Home = () => {
                 </header>
                 <Link to={`create-post/`}>Create Post</Link>
                 <ul>
-                    {users.map((user) => (
-                        <li key={user.id}>
-                            <Link to={`user/${user.id}`}>{user.name}</Link>
-                            <button type="button" onClick={() => deletePostHandler(5)}>DELETE</button>
+                    {posts.map((post) => (
+                        <li key={post.id}>
+                            <div>
+                                <h2>{post.title}</h2>
+                                <img src={post.link} alt={post.title}/>
+                                <p>{post.description}</p>
+                            </div>
+                            <button type="button" onClick={() => { deletePostHandler(5) }}>DELETE</button>
                             <Link to={'update-post/:id'}>UPDATE</Link>
                         </li>
                     ))}
