@@ -1,5 +1,22 @@
 {
-    "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
-    "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-    "profile": { "name": "typicode" }
+    "posts": [
+        {
+            "id": 1,
+            "title": "Blog Post 1",
+            "description": "Test Description",
+            "link": "https://picsum.photos/200/300"
+        },
+        {
+            "id": 2,
+            "title": "Blog Post 2",
+            "description": "Test Description",
+            "link": "https://picsum.photos/200/300"
+        },
+        {
+            "id": 3,
+            "title": "Blog Post 3",
+            "description": "Test Description",
+            "link": "https://picsum.photos/200/300"
+        },
+    ]
 }
