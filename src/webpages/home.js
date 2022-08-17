@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import UpdateBlogPost from "../components/UpdateBlogPost";
 
 // FIXME - Replace all instances of data fetching with a custom hook (if I have time)
 const Home = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [aPostHasBeenDeleted, setAPostHasBeenDeleted] = useState(false);
+    const [aPostIsBeingUpdated, setAPostIsBeingUpdated] = useState(false);
+    const [idOfPostBeingUpdated, setIdOfPostBeingUpdated] = useState();
     const [posts, setPosts] = useState([]);
 
     const fetchBlogPosts = async () => {
@@ -37,7 +40,7 @@ const Home = () => {
         return data;
     };
 
-    const deletePostHandler = (id) => {
+    const deleteBlogPostHandler = (id) => {
         // Delete request with the given post id
         deleteBlogPost(id).then((data) => {
             setPosts((prevPosts) => {
@@ -50,8 +53,58 @@ const Home = () => {
         });
     };
 
-    const updatePostHandler = (post) => {
+    const updateClickHandler = (postId) => {
+        setIdOfPostBeingUpdated(postId);
+        setAPostIsBeingUpdated(true);
+    }
+
+    const updateBlogPost = async (updatedBlogPostData) => {
+        const { id, title, description, link } = updatedBlogPostData;
+
+        const response = await fetch(`http://localhost:3333/posts/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title,
+                description,
+                link,
+            }),
+        });
+
+        const data = await response.json();
+
+        return data;
+    };
+
+    const updateBlogPostHandler = (updatedBlogPostData) => {
         // Patch request to post with the given id
+        updateBlogPost(updatedBlogPostData)
+            .then((data) => {
+                console.log("Successfully updated the blog post");
+                setPosts((prevPosts) => {
+                    return prevPosts.map((prevPost) => {
+                        if (prevPost.id === updatedBlogPostData.id) {
+                            return {
+                                ...updatedBlogPostData,
+                            };
+                        }
+                        return prevPost;
+                    });
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                setAPostIsBeingUpdated(false);
+                setIdOfPostBeingUpdated(null);
+            });
+    };
+
+    const closeUpdateModalHandler = () => {
+        setAPostIsBeingUpdated(false);
     };
 
     if (error) {
@@ -77,15 +130,27 @@ const Home = () => {
                             <button
                                 type="button"
                                 onClick={() => {
-                                    deletePostHandler(post.id);
+                                    deleteBlogPostHandler(post.id);
                                 }}
                             >
                                 DELETE
                             </button>
-                            <Link to={"update-post/:id"}>UPDATE</Link>
+                            <button
+                                type="button"
+                                onClick={() => updateClickHandler(post.id)}
+                            >
+                                UPDATE
+                            </button>
                         </li>
                     ))}
                 </ul>
+                {aPostIsBeingUpdated && (
+                    <UpdateBlogPost
+                        onCloseUpdateModal={closeUpdateModalHandler}
+                        idOfPostBeingUpdated={idOfPostBeingUpdated}
+                        onUpdateFormSubmitHandler={updateBlogPostHandler}
+                    />
+                )}
             </>
         );
     }
