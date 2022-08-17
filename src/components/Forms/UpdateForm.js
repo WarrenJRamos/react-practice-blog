@@ -1,6 +1,13 @@
 import React, { useRef } from "react";
+import Form from "./Form";
+import FormInput from "./FormInput";
+import SubmitButton from "./SubmitButton";
 import classes from "../../styles/components/Forms/UpdateForm.module.css";
 
+// Didn't add any validation for this form
+// Could have stored the values in state rather than refs, but decided to go with
+// ref approach for simple validation in the post form component, and since they
+// use the same form, I had to use ref approach for this form as well.
 const UpdateForm = (props) => {
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();
@@ -22,42 +29,40 @@ const UpdateForm = (props) => {
     };
 
     return (
-        <form onSubmit={onSubmitHandler} className={classes.form}>
+        <Form onSubmitHandler={onSubmitHandler}>
             <h2>Update the post</h2>
-            <div className={classes.control}>
-                <label htmlFor="title">Title</label>
-                <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    placeholder="Title"
-                    ref={titleInputRef}
-                />
-            </div>
-            <div className={classes.control}>
-                <label htmlFor="title">Description</label>
-                <input
-                    id="description"
-                    name="description"
-                    type="text"
-                    placeholder="Description"
-                    ref={descriptionInputRef}
-                />
-            </div>
-            <div className={classes.control}>
-                <label htmlFor="title">Link</label>
-                <input
-                    id="link"
-                    name="link"
-                    type="text"
-                    defaultValue="https://picsum.photos/360/216"
-                    ref={linkInputRef}
-                />
-            </div>
-            <button type="submit" className={classes.submit}>
-                Submit
-            </button>
-        </form>
+            <FormInput
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Title"
+                ref={titleInputRef}
+                label="Title"
+                className={classes.control}
+                isValid
+            />
+            <FormInput
+                id="description"
+                name="description"
+                type="text"
+                placeholder="Description"
+                ref={descriptionInputRef}
+                label="Description"
+                className={classes.control}
+                isValid
+            />
+            <FormInput
+                id="link"
+                name="link"
+                type="text"
+                ref={linkInputRef}
+                label="Link"
+                className={classes.control}
+                defaultValue="https://picsum.photos/360/216"
+                isValid
+            />
+            <SubmitButton />
+        </Form>
     );
 };
 

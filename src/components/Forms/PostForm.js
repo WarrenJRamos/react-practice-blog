@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Form from "./Form";
+import FormInput from "./FormInput";
+import SubmitButton from "./SubmitButton";
 import classes from "../../styles/components/Forms/PostForm.module.css";
 
 const PostForm = () => {
@@ -91,48 +93,40 @@ const PostForm = () => {
     }
 
     return (
-        <form className={classes.form} onSubmit={onSubmitHandler}>
-            <div className={titleControlClasses}>
-                <label htmlFor="title">Title</label>
-                <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    placeholder="Enter blog post title"
-                    ref={titleInputRef}
-                />
-                {!formInputsValidity.title && (
-                    <p className={classes.error}>Please enter a valid title</p>
-                )}
-            </div>
-            <div className={descriptionControlClasses}>
-                <label htmlFor="title">Description</label>
-                <input
-                    id="description"
-                    name="description"
-                    type="text"
-                    placeholder="Enter blog post description"
-                    ref={descriptionInputRef}
-                />
-                {!formInputsValidity.description && (
-                    <p className={classes.error}>Please enter a valid description</p>
-                )}
-            </div>
-            <div className={linkControlClasses}>
-                <label htmlFor="title">Link</label>
-                <input
-                    id="link"
-                    name="link"
-                    type="text"
-                    defaultValue="https://picsum.photos/360/216"
-                    ref={linkInputRef}
-                />
-                {!formInputsValidity.link && (
-                    <p className={classes.error}>Please enter a valid link</p>
-                )}
-            </div>
-            <button type="submit" className={classes.submit}>Submit</button>
-        </form>
+        <Form onSubmitHandler={onSubmitHandler}>
+            <h2 className={classes.header}>Create a new post</h2>
+            <FormInput
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Enter blog post title"
+                ref={titleInputRef}
+                label="Title"
+                className={titleControlClasses}
+                isValid={formInputsValidity.title}
+            />
+            <FormInput
+                id="description"
+                name="description"
+                type="text"
+                placeholder="Enter blog post description"
+                ref={descriptionInputRef}
+                label="Description"
+                className={descriptionControlClasses}
+                isValid={formInputsValidity.description}
+            />
+            <FormInput
+                id="link"
+                name="link"
+                type="text"
+                ref={linkInputRef}
+                label="Link"
+                defaultValue="https://picsum.photos/360/216"
+                className={linkControlClasses}
+                isValid={formInputsValidity.link}
+            />
+            <SubmitButton />
+        </Form>
     );
 };
 

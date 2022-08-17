@@ -3,14 +3,11 @@
     box-shadow: 0px 0px 2px lightgray;
 }
 
-.post .post--image {
-}
-
-.post .post--details {
+/* .post .post--details {
     padding: 1rem;
-}
+} */
 
-.post .post--actions {
+/* .post .post--actions {
     padding: 1rem 1rem 2rem 1rem;
     display: flex;
     flex-direction: row;
@@ -28,4 +25,4 @@
 
 .post .post--actions .btn__delete {
     background-color: #eb5757;
-}
+} */

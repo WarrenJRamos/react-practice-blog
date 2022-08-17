@@ -9,7 +9,6 @@ const CreatePost = () => {
     return (
         <Container>
             <Header />
-            <h2 className={classes.header}>Create a new post</h2>
             <PostForm />
             <footer className={classes.footer}>
                 <Link to={"/"}>Click here to go back home</Link>
