@@ -1,13 +1,14 @@
 import React from "react";
-import Webpages from "./webpages/Index";
-import { BrowserRouter } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
     return (
-        <BrowserRouter>
-            <Webpages />
-        </BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/create-post" element={<CreatePost />} />
+        </Routes>
     );
 }
 

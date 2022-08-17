@@ -103,6 +103,7 @@ const Home = () => {
             })
             .catch((err) => {
                 console.log(err);
+                setError(err.message);
             })
             .finally(() => {
                 setAPostIsBeingUpdated(false);
@@ -115,7 +116,7 @@ const Home = () => {
     };
 
     if (error) {
-        return <ErrorMessage message={error.message} />;
+        return <ErrorMessage message={error} />;
     } else if (!isLoaded) {
         return <LoadingMessage />;
     } else {
