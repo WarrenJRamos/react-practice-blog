@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from "./Modal.module.css";
+import classes from "../../styles/components/Modal/Modal.module.css";
 
 const ModalOverlay = (props) => {
     return (

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import classes from "../styles/components/PostForm.module.css";
 
 const PostForm = () => {
     const [blogPostWasCreated, setBlogPostWasCreated] = useState(false);
@@ -90,7 +91,7 @@ const PostForm = () => {
     }
 
     return (
-        <form className="" onSubmit={onSubmitHandler}>
+        <form className={classes.form} onSubmit={onSubmitHandler}>
             <h2>Create a new post</h2>
             <div className={titleControlClasses}>
                 <label htmlFor="title">Title</label>
@@ -124,7 +125,7 @@ const PostForm = () => {
                     id="link"
                     name="link"
                     type="text"
-                    defaultValue="https://picsum.photos/200/300"
+                    defaultValue="https://picsum.photos/360/216"
                     ref={linkInputRef}
                 />
                 {!formInputsValidity.link && (
