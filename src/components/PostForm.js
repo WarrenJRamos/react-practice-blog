@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const BlogForm = () => {
+const PostForm = () => {
     const [blogPostWasCreated, setBlogPostWasCreated] = useState(false);
     const [formInputsValidity, setFormInputsValidity] = useState({
         title: true,
@@ -91,7 +91,7 @@ const BlogForm = () => {
 
     return (
         <form className="" onSubmit={onSubmitHandler}>
-            <h2>Create a new Blog Post</h2>
+            <h2>Create a new post</h2>
             <div className={titleControlClasses}>
                 <label htmlFor="title">Title</label>
                 <input
@@ -136,4 +136,4 @@ const BlogForm = () => {
     );
 };
 
-export default BlogForm;
+export default PostForm;
