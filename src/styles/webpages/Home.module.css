@@ -1,69 +1,8 @@
-.home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    margin-top: 1rem;
-    font-family: "Helvetica Neue", Helvetica, Arial;
-    background-color: white;
-}
-
-.home-container .header {
-    font-size: 3rem;
-    color: rgba(155, 162, 255, 1);
-}
-
-.home-container .header h1 {
-    margin: 0.8rem;
-}
-
-.home-container .create-post {
+.create-post {
     padding: 0.8rem 1rem;
     margin-bottom: 1rem;
     color: white;
     text-decoration: none;
     border-radius: 3px;
     background-color: rgba(155, 162, 255, 1);
-}
-
-.home-container .posts {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 3rem;
-    flex-wrap: wrap;
-    width: 100%;
-    max-width: 1200px;
-}
-
-.home-container .posts .post {
-    list-style: none;
-    box-shadow: 0px 0px 2px lightgray;
-}
-
-.home-container .posts .post .post--image {
-}
-
-.home-container .posts .post .post--details {
-    padding: 1rem;
-}
-
-.home-container .posts .post .post--actions {
-    padding: 1rem 1rem 2rem 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.home-container .posts .post .post--actions .btn {
-    color: white;
-    padding: 0.8rem 1.2rem;
-    background-color: lightskyblue;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.home-container .posts .post .post--actions .btn__delete {
-    background-color: #eb5757;
 }

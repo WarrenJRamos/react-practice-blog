@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import classes from "../styles/components/UpdateForm.module.css";
+import classes from "../../styles/components/Forms/UpdateForm.module.css";
 
 const UpdateForm = (props) => {
     const titleInputRef = useRef();

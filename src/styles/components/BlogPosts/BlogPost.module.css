@@ -1,0 +1,31 @@
+.post {
+    list-style: none;
+    box-shadow: 0px 0px 2px lightgray;
+}
+
+.post .post--image {
+}
+
+.post .post--details {
+    padding: 1rem;
+}
+
+.post .post--actions {
+    padding: 1rem 1rem 2rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post .post--actions .btn {
+    color: white;
+    padding: 0.8rem 1.2rem;
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.post .post--actions .btn__delete {
+    background-color: #eb5757;
+}

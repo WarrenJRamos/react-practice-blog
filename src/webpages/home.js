@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import UpdateBlogPost from "../components/UpdateBlogPost";
+import UpdateBlogPost from "../components/BlogPosts/UpdateBlogPost";
+import BlogPosts from "../components/BlogPosts/BlogPosts";
+import DeletedPostAlert from "../components/Alerts/DeletedPostAlert";
 import classes from "../styles/webpages/Home.module.css";
+import Header from "../components/Header/Header";
+import LoadingMessage from "../components/ProgressIndicators/LoadingMessage";
+import ErrorMessage from "../components/Error/ErrorMessage";
+import Container from "../components/Layout/Container";
 
 // FIXME - Replace all instances of data fetching with a custom hook (if I have time)
 const Home = () => {
@@ -109,53 +115,22 @@ const Home = () => {
     };
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <ErrorMessage message={error.message} />;
     } else if (!isLoaded) {
-        return <div>Loading...</div>;
+        return <LoadingMessage />;
     } else {
         return (
-            <div className={classes["home-container"]}>
-                <header className={classes.header}>
-                    <h1>Warren's Blog</h1>
-                </header>
+            <Container>
+                <Header />
                 <Link to={`create-post/`} className={classes["create-post"]}>
                     Click here to create a new post
                 </Link>
-                {aPostHasBeenDeleted && <p>A post has been deleted</p>}
-                <ul className={classes["posts"]}>
-                    {posts.map((post) => (
-                        <li key={post.id} className={classes.post}>
-                            <div className={classes["post--image"]}>
-                                <img
-                                    src={post.link}
-                                    alt={post.title}
-                                />
-                            </div>
-                            <div className={classes["post--details"]}>
-                                <h2>{post.title}</h2>
-                                <p>{post.description}</p>
-                            </div>
-                            <div className={classes["post--actions"]}>
-                                <button
-                                    type="button"
-                                    className={`${classes.btn} ${classes["btn__delete"]}`}
-                                    onClick={() => {
-                                        deleteBlogPostHandler(post.id);
-                                    }}
-                                >
-                                    DELETE
-                                </button>
-                                <button
-                                    type="button"
-                                    className={classes.btn}
-                                    onClick={() => updateClickHandler(post.id)}
-                                >
-                                    UPDATE
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                {aPostHasBeenDeleted && <DeletedPostAlert />}
+                <BlogPosts
+                    posts={posts}
+                    deleteBlogPostHandler={deleteBlogPostHandler}
+                    updateClickHandler={updateClickHandler}
+                />
                 {aPostIsBeingUpdated && (
                     <UpdateBlogPost
                         onCloseUpdateModal={closeUpdateModalHandler}
@@ -163,7 +138,7 @@ const Home = () => {
                         onUpdateFormSubmitHandler={updateBlogPostHandler}
                     />
                 )}
-            </div>
+            </Container>
         );
     }
 };

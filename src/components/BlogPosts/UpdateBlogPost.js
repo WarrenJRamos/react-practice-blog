@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "./Modal/Modal";
-import UpdateForm from "./UpdateForm";
+import Modal from "../Modal/Modal";
+import UpdateForm from "../Forms/UpdateForm";
 
 const UpdateBlogPost = (props) => {
     return (

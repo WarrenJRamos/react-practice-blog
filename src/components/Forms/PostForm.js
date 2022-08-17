@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import classes from "../styles/components/PostForm.module.css";
+import classes from "../../styles/components/Forms/PostForm.module.css";
 
 const PostForm = () => {
     const [blogPostWasCreated, setBlogPostWasCreated] = useState(false);
