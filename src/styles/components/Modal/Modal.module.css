@@ -10,12 +10,16 @@
 
 .modal-overlay {
     position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    margin: auto;
     z-index: 101;
     background-color: white;
     animation: modal-open 400ms ease-out forwards;
+    width: 100%;
+    max-width: 760px;
 }
 
 @keyframes modal-open {

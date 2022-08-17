@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UpdateBlogPost from "../components/UpdateBlogPost";
+import classes from "../styles/webpages/Home.module.css";
 
 // FIXME - Replace all instances of data fetching with a custom hook (if I have time)
 const Home = () => {
@@ -56,7 +57,7 @@ const Home = () => {
     const updateClickHandler = (postId) => {
         setIdOfPostBeingUpdated(postId);
         setAPostIsBeingUpdated(true);
-    }
+    };
 
     const updateBlogPost = async (updatedBlogPostData) => {
         const { id, title, description, link } = updatedBlogPostData;
@@ -113,34 +114,45 @@ const Home = () => {
         return <div>Loading...</div>;
     } else {
         return (
-            <>
-                <header>
+            <div className={classes["home-container"]}>
+                <header className={classes.header}>
                     <h1>Warren's Blog</h1>
                 </header>
-                <Link to={`create-post/`}>Create Post</Link>
+                <Link to={`create-post/`} className={classes["create-post"]}>
+                    Click here to create a new post
+                </Link>
                 {aPostHasBeenDeleted && <p>A post has been deleted</p>}
-                <ul>
+                <ul className={classes["posts"]}>
                     {posts.map((post) => (
-                        <li key={post.id}>
-                            <div>
+                        <li key={post.id} className={classes.post}>
+                            <div className={classes["post--image"]}>
+                                <img
+                                    src={post.link}
+                                    alt={post.title}
+                                />
+                            </div>
+                            <div className={classes["post--details"]}>
                                 <h2>{post.title}</h2>
-                                <img src={post.link} alt={post.title} />
                                 <p>{post.description}</p>
                             </div>
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    deleteBlogPostHandler(post.id);
-                                }}
-                            >
-                                DELETE
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => updateClickHandler(post.id)}
-                            >
-                                UPDATE
-                            </button>
+                            <div className={classes["post--actions"]}>
+                                <button
+                                    type="button"
+                                    className={`${classes.btn} ${classes["btn__delete"]}`}
+                                    onClick={() => {
+                                        deleteBlogPostHandler(post.id);
+                                    }}
+                                >
+                                    DELETE
+                                </button>
+                                <button
+                                    type="button"
+                                    className={classes.btn}
+                                    onClick={() => updateClickHandler(post.id)}
+                                >
+                                    UPDATE
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -151,7 +163,7 @@ const Home = () => {
                         onUpdateFormSubmitHandler={updateBlogPostHandler}
                     />
                 )}
-            </>
+            </div>
         );
     }
 };

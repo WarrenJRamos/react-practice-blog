@@ -16,7 +16,7 @@ const PostForm = () => {
 
     // Returns true if input passes validation logic
     const validate = (input) => {
-        return input.value !== "";
+        return input !== "";
     };
 
     const postBlogPost = async (formData) => {
@@ -76,14 +76,14 @@ const PostForm = () => {
             });
     };
 
-    const titleControlClasses = `control ${
-        formInputsValidity.title ? "" : "invalid"
+    const titleControlClasses = `${classes.control} ${
+        formInputsValidity.title ? "" : classes.invalid
     }`;
-    const descriptionControlClasses = `control ${
-        formInputsValidity.description ? "" : "invalid"
+    const descriptionControlClasses = `${classes.control} ${
+        formInputsValidity.description ? "" : classes.invalid
     }`;
-    const linkControlClasses = `control ${
-        formInputsValidity.link ? "" : "invalid"
+    const linkControlClasses = `${classes.control} ${
+        formInputsValidity.link ? "" : classes.invalid
     }`;
 
     if (blogPostWasCreated) {
@@ -92,18 +92,17 @@ const PostForm = () => {
 
     return (
         <form className={classes.form} onSubmit={onSubmitHandler}>
-            <h2>Create a new post</h2>
             <div className={titleControlClasses}>
                 <label htmlFor="title">Title</label>
                 <input
                     id="title"
                     name="title"
                     type="text"
-                    placeholder="Title"
+                    placeholder="Enter blog post title"
                     ref={titleInputRef}
                 />
                 {!formInputsValidity.title && (
-                    <p className="error">Please enter a valid title</p>
+                    <p className={classes.error}>Please enter a valid title</p>
                 )}
             </div>
             <div className={descriptionControlClasses}>
@@ -112,11 +111,11 @@ const PostForm = () => {
                     id="description"
                     name="description"
                     type="text"
-                    placeholder="Description"
+                    placeholder="Enter blog post description"
                     ref={descriptionInputRef}
                 />
                 {!formInputsValidity.description && (
-                    <p className="error">Please enter a valid description</p>
+                    <p className={classes.error}>Please enter a valid description</p>
                 )}
             </div>
             <div className={linkControlClasses}>
@@ -129,10 +128,10 @@ const PostForm = () => {
                     ref={linkInputRef}
                 />
                 {!formInputsValidity.link && (
-                    <p className="error">Please enter a valid link</p>
+                    <p className={classes.error}>Please enter a valid link</p>
                 )}
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" className={classes.submit}>Submit</button>
         </form>
     );
 };

@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import classes from "../styles/components/UpdateForm.module.css";
 
 const UpdateForm = (props) => {
     const titleInputRef = useRef();
@@ -21,9 +22,9 @@ const UpdateForm = (props) => {
     };
 
     return (
-        <form onSubmit={onSubmitHandler}>
+        <form onSubmit={onSubmitHandler} className={classes.form}>
             <h2>Update the post</h2>
-            <div className="">
+            <div className={classes.control}>
                 <label htmlFor="title">Title</label>
                 <input
                     id="title"
@@ -33,7 +34,7 @@ const UpdateForm = (props) => {
                     ref={titleInputRef}
                 />
             </div>
-            <div className="">
+            <div className={classes.control}>
                 <label htmlFor="title">Description</label>
                 <input
                     id="description"
@@ -43,17 +44,19 @@ const UpdateForm = (props) => {
                     ref={descriptionInputRef}
                 />
             </div>
-            <div className="">
+            <div className={classes.control}>
                 <label htmlFor="title">Link</label>
                 <input
                     id="link"
                     name="link"
                     type="text"
-                    defaultValue="https://picsum.photos/200/300"
+                    defaultValue="https://picsum.photos/360/216"
                     ref={linkInputRef}
                 />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" className={classes.submit}>
+                Submit
+            </button>
         </form>
     );
 };

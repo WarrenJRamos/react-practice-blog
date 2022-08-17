@@ -6,6 +6,7 @@
     max-width: 760px;
     padding: 5rem 3rem;
     box-shadow: 0px 0px 7px rgba(155, 162, 255, 1);
+    background-color: inherit;
 }
 
 .form .control {
@@ -32,15 +33,4 @@
     color: white;
     border: none;
     background-color: rgba(155, 162, 255, 1);
-}
-
-/* Error Styles */
-.form .control.invalid input {
-    border: 1px solid #eb5757;
-}
-
-.form .control .error {
-    color: #eb5757;
-    font-size: 0.8rem;
-    margin-top: -3px;
 }

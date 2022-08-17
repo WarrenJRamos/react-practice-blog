@@ -1,22 +1,22 @@
 {
-    "posts": [
-        {
-            "id": 1,
-            "title": "Blog Post 1",
-            "description": "Test Description",
-            "link": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 2,
-            "title": "Blog Post 2",
-            "description": "Test Description",
-            "link": "https://picsum.photos/200/300"
-        },
-        {
-            "id": 3,
-            "title": "Blog Post 3",
-            "description": "Test Description",
-            "link": "https://picsum.photos/200/300"
-        }
-    ]
+  "posts": [
+    {
+      "title": "ee",
+      "description": "ee",
+      "link": "https://picsum.photos/360/216",
+      "id": 3
+    },
+    {
+      "title": "wefwew",
+      "description": "wefwefwe",
+      "link": "https://picsum.photos/360/216",
+      "id": 4
+    },
+    {
+      "title": "123123",
+      "description": "2131231",
+      "link": "https://picsum.photos/360/216",
+      "id": 5
+    }
+  ]
 }
