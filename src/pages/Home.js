@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import UpdateBlogPost from "../components/BlogPosts/UpdateBlogPost";
 import BlogPosts from "../components/BlogPosts/BlogPosts";
 import DeletedPostAlert from "../components/Alerts/DeletedPostAlert";
-import classes from "../styles/webpages/Home.module.css";
+import classes from "../styles/pages/Home.module.css";
 import Header from "../components/Header/Header";
 import LoadingMessage from "../components/ProgressIndicators/LoadingMessage";
 import ErrorMessage from "../components/Error/ErrorMessage";
