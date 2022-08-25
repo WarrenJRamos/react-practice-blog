@@ -1,10 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
+import useRequest from "../../hooks/use-request";
+
+import classes from "../../styles/components/Forms/PostForm.module.css";
+import ErrorMessage from "../Error/ErrorMessage";
+
 import Form from "./Form";
 import FormInput from "./FormInput";
 import SubmitButton from "./SubmitButton";
-import classes from "../../styles/components/Forms/PostForm.module.css";
 
 const PostForm = () => {
+    const { fetchData, error, setError } = useRequest();
     const [blogPostWasCreated, setBlogPostWasCreated] = useState(false);
     const [formInputsValidity, setFormInputsValidity] = useState({
         title: true,
@@ -21,19 +26,18 @@ const PostForm = () => {
         return input !== "";
     };
 
+    // Send a request to create a blog post
     const postBlogPost = async (formData) => {
-        console.log(formData);
-        const response = await fetch("http://localhost:3333/posts/", {
+        const responseData = fetchData({
+            apiEndpoint: "http://localhost:3333/posts/",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData),
+            body: formData,
         });
 
-        const data = await response.json();
-
-        return data;
+        return responseData;
     };
 
     const onSubmitHandler = (event) => {
@@ -68,14 +72,13 @@ const PostForm = () => {
             title: enteredTitle,
             description: enteredDescription,
             link: enteredLink,
-        })
-            .then((data) => {
-                console.log("Successfully created a blog post");
-                setBlogPostWasCreated(true);
-            })
-            .catch((error) => {
-                console.log("Couldn't create a blog post");
-            });
+        }).then(() => {
+            console.log("Successfully created a blog post!");
+            setBlogPostWasCreated(true);
+        }).catch((err) => {
+            console.log(err.message);
+            setError(err.message);
+        });
     };
 
     const titleControlClasses = `${classes.control} ${
@@ -87,6 +90,10 @@ const PostForm = () => {
     const linkControlClasses = `${classes.control} ${
         formInputsValidity.link ? "" : classes.invalid
     }`;
+
+    if (error) {
+        return <ErrorMessage message={`Error: ${error}`} />;
+    }
 
     if (blogPostWasCreated) {
         return <p>You successfully created a post!</p>;

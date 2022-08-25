@@ -1,55 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useRequest from "../hooks/use-request";
+
+import classes from "../styles/pages/Home.module.css";
+
 import UpdateBlogPost from "../components/BlogPosts/UpdateBlogPost";
 import BlogPosts from "../components/BlogPosts/BlogPosts";
 import DeletedPostAlert from "../components/Alerts/DeletedPostAlert";
-import classes from "../styles/pages/Home.module.css";
 import Header from "../components/Header/Header";
 import LoadingMessage from "../components/ProgressIndicators/LoadingMessage";
 import ErrorMessage from "../components/Error/ErrorMessage";
 import Container from "../components/Layout/Container";
 
-// FIXME - Replace all instances of data fetching with a custom hook (if I have time)
 const Home = () => {
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const { fetchData, isLoaded, setIsLoaded, error, setError } = useRequest();
+    const [posts, setPosts] = useState([]);
     const [aPostHasBeenDeleted, setAPostHasBeenDeleted] = useState(false);
     const [aPostIsBeingUpdated, setAPostIsBeingUpdated] = useState(false);
     const [idOfPostBeingUpdated, setIdOfPostBeingUpdated] = useState();
-    const [posts, setPosts] = useState([]);
 
+    // Send a request to get all blog posts
     const fetchBlogPosts = async () => {
-        const response = await fetch("http://localhost:3333/posts/");
+        const responseData = await fetchData({
+            apiEndpoint: "http://localhost:3333/posts/",
+        });
 
-        // FIXME - Possibly add error handling here (if I have time)
-
-        const data = await response.json();
-
-        return data;
+        return responseData;
     };
 
+    // Only run once, to retrieve all blog posts, after the component
+    // has been mounted into the DOM
     useEffect(() => {
-        fetchBlogPosts()
-            .then((data) => {
-                setIsLoaded(true);
-                setPosts(data);
-            })
-            .catch((error) => setError(error.message));
+        fetchBlogPosts().then((data) => {
+            console.log("Successfully retrieved all blog posts!");
+            setIsLoaded(true);
+            setPosts(data);
+        }).catch((err) => {
+            console.log(err.message);
+            setError(err.message);
+        });
     }, []);
 
+    // Send a request to delete a blog post with the given ID
     const deleteBlogPost = async (id) => {
-        const response = await fetch(`http://localhost:3333/posts/${id}`, {
+        const responseData = await fetchData({
+            apiEndpoint: `http://localhost:3333/posts/${id}`,
             method: "DELETE",
         });
 
-        const data = await response.json();
-
-        return data;
+        return responseData;
     };
 
+    // Event handler for deleting blog post
     const deleteBlogPostHandler = (id) => {
-        // Delete request with the given post id
-        deleteBlogPost(id).then((data) => {
+        deleteBlogPost(id).then(() => {
+            console.log("Successfully deleted a blog post!");
             setPosts((prevPosts) => {
                 return prevPosts.filter((prevPost) => prevPost.id !== id);
             });
@@ -57,58 +62,55 @@ const Home = () => {
             setTimeout(() => {
                 setAPostHasBeenDeleted(false); //
             }, 2000);
+        }).catch((err) => {
+            console.log(err.message);
+            setError(err.message);
         });
     };
 
+    // Need to store ID of post being updated to true, so modal component is
+    // aware of the blog post it's updating
     const updateClickHandler = (postId) => {
         setIdOfPostBeingUpdated(postId);
         setAPostIsBeingUpdated(true);
     };
 
+    // Send a request to update a blog post with the given updated data
     const updateBlogPost = async (updatedBlogPostData) => {
         const { id, title, description, link } = updatedBlogPostData;
 
-        const response = await fetch(`http://localhost:3333/posts/${id}`, {
+        const responseData = await fetchData({
+            apiEndpoint: `http://localhost:3333/posts/${id}`,
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                title,
-                description,
-                link,
-            }),
+            body: { title, description, link },
         });
 
-        const data = await response.json();
-
-        return data;
+        return responseData;
     };
 
+    // Event handler for updating a blog post
     const updateBlogPostHandler = (updatedBlogPostData) => {
-        // Patch request to post with the given id
-        updateBlogPost(updatedBlogPostData)
-            .then((data) => {
-                console.log("Successfully updated the blog post");
-                setPosts((prevPosts) => {
-                    return prevPosts.map((prevPost) => {
-                        if (prevPost.id === updatedBlogPostData.id) {
-                            return {
-                                ...updatedBlogPostData,
-                            };
-                        }
-                        return prevPost;
-                    });
+        updateBlogPost(updatedBlogPostData).then(() => {
+            console.log("Successfully updated the blog post!");
+            setPosts((prevPosts) => {
+                return prevPosts.map((prevPost) => {
+                    if (prevPost.id === updatedBlogPostData.id) {
+                        return {
+                            ...updatedBlogPostData,
+                        };
+                    }
+                    return prevPost;
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-                setError(err.message);
-            })
-            .finally(() => {
-                setAPostIsBeingUpdated(false);
-                setIdOfPostBeingUpdated(null);
             });
+            setAPostIsBeingUpdated(false);
+            setIdOfPostBeingUpdated(null);
+        }).catch((err) => {
+            console.log(err.message);
+            setError(err.message);
+        });
     };
 
     const closeUpdateModalHandler = () => {
@@ -116,7 +118,7 @@ const Home = () => {
     };
 
     if (error) {
-        return <ErrorMessage message={error} />;
+        return <ErrorMessage message={`Error: ${error}`} />;
     } else if (!isLoaded) {
         return <LoadingMessage />;
     } else {
