@@ -2,4 +2,11 @@
     padding: 1rem 3rem;
     background-color: red;
     color: white;
+    text-align: center;
+    width: 300px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }

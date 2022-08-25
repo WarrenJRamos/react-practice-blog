@@ -6,7 +6,8 @@ import ModalOverlay from "./ModalOverlay";
 const root = document.getElementById("root");
 
 // Set it up this way so Modal could be used for other components, not just
-// for updating blog post data
+// for updating blog post data; ended up not needing to use it for other
+// components though
 const Modal = (props) => {
     return (
         <>

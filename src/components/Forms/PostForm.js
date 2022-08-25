@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import useRequest from "../../hooks/use-request";
 import classes from "../../styles/components/Forms/PostForm.module.css";
-import ErrorMessage from "../Error/ErrorMessage";
+import ErrorAlert from "../Alerts/ErrorAlert";
 import Form from "./Form";
 import FormInput from "./FormInput";
 import SubmitButton from "./SubmitButton";
@@ -90,11 +90,11 @@ const PostForm = () => {
     }`;
 
     if (error) {
-        return <ErrorMessage message={`Error: ${error}`} />;
+        return <ErrorAlert message={`Error: ${error}`} />;
     }
 
     if (blogPostWasCreated) {
-        return <p>You successfully created a post!</p>;
+        return <p className={classes.success}>You successfully created a post!</p>;
     }
 
     return (

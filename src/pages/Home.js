@@ -6,7 +6,7 @@ import UpdateBlogPost from "../components/BlogPosts/UpdateBlogPost";
 import BlogPosts from "../components/BlogPosts/BlogPosts";
 import DeletedPostAlert from "../components/Alerts/DeletedPostAlert";
 import LoadingMessage from "../components/ProgressIndicators/LoadingMessage";
-import ErrorMessage from "../components/Error/ErrorMessage";
+import ErrorAlert from "../components/Alerts/ErrorAlert";
 import Layout from "../components/Layout/Layout";
 
 const Home = () => {
@@ -121,31 +121,34 @@ const Home = () => {
     };
 
     if (error) {
-        return <ErrorMessage message={`Error: ${error}`} />;
-    } else if (!isLoaded) {
-        return <LoadingMessage />;
-    } else {
-        return (
-            <Layout>
-                <Link to={`create-post/`} className={classes["create-post"]}>
-                    Click here to create a new post
-                </Link>
-                {aPostHasBeenDeleted && <DeletedPostAlert />}
-                <BlogPosts
-                    posts={posts}
-                    deleteBlogPostHandler={deleteBlogPostHandler}
-                    updateClickHandler={updateClickHandler}
-                />
-                {aPostIsBeingUpdated && (
-                    <UpdateBlogPost
-                        onCloseUpdateModal={closeUpdateModalHandler}
-                        idOfPostBeingUpdated={idOfPostBeingUpdated}
-                        onUpdateFormSubmitHandler={updateBlogPostHandler}
-                    />
-                )}
-            </Layout>
-        );
+        return <ErrorAlert message={`Error: ${error}`} />;
     }
+
+    if (!isLoaded) {
+        return <LoadingMessage message="Loading blog posts..."/>;
+    }
+
+    return (
+        <Layout>
+            <Link to={`create-post/`} className={classes["create-post"]}>
+                Click here to create a new post
+            </Link>
+            {posts.length === 0 && <p className={classes["no-post"]}>No blog posts available...</p>}
+            {aPostHasBeenDeleted && <DeletedPostAlert />}
+            <BlogPosts
+                posts={posts}
+                deleteBlogPostHandler={deleteBlogPostHandler}
+                updateClickHandler={updateClickHandler}
+            />
+            {aPostIsBeingUpdated && (
+                <UpdateBlogPost
+                    onCloseUpdateModal={closeUpdateModalHandler}
+                    idOfPostBeingUpdated={idOfPostBeingUpdated}
+                    onUpdateFormSubmitHandler={updateBlogPostHandler}
+                />
+            )}
+        </Layout>
+    );
 };
 
 export default Home;

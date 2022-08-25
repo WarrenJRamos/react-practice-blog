@@ -7,7 +7,7 @@ import SubmitButton from "./SubmitButton";
 // Didn't add any validation for this form
 // Could have stored the values in state rather than refs, but decided to go with
 // ref approach for simple validation in the post form component, and since they
-// use the same form, I had to use ref approach for this form as well.
+// use the same form component, I had to use ref approach for this form as well.
 const UpdateForm = (props) => {
     const titleInputRef = useRef();
     const descriptionInputRef = useRef();

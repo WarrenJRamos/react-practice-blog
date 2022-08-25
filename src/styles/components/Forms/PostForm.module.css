@@ -1,3 +1,9 @@
+.success {
+    text-align: center;
+    font-size: 2rem;
+    color: green;
+}
+
 .control {
     display: flex;
     flex-direction: column;

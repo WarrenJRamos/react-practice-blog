@@ -10,3 +10,9 @@
     border-radius: 3px;
     background-color: rgba(155, 162, 255, 1);
 }
+
+.no-post {
+    text-align: center;
+    color: red;
+    font-size: 2rem;
+}

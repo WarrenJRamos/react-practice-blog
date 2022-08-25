@@ -1,6 +1,9 @@
 import React from "react";
 import classes from "../../styles/components/Forms/FormInput.module.css";
 
+// I don't normally add a default value, but to make it easier to create
+// blog posts, I put the image link as the default value for inputs that
+// are links
 const FormInput = React.forwardRef((props, ref) => {
     return (
         <div className={`${props.className}`}>
@@ -11,7 +14,7 @@ const FormInput = React.forwardRef((props, ref) => {
                 type={props.type}
                 placeholder={props.placeholder}
                 defaultValue={
-                    props.defaultValue && "https://picsum.photos/360/216"
+                    props.name === "link" && props.defaultValue
                 }
                 ref={ref}
             />

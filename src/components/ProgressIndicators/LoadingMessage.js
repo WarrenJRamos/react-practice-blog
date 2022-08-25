@@ -1,7 +1,8 @@
 import React from "react";
+import classes from "../../styles/components/ProgressIndicators/LoadingMessage.module.css";
 
-const LoadingMessage = () => {
-    return <div>Loading...</div>;
+const LoadingMessage = (props) => {
+    return <div className={classes.message}>{props.message}</div>;
 };
 
 export default LoadingMessage;
