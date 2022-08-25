@@ -1,9 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import useRequest from "../../hooks/use-request";
-
 import classes from "../../styles/components/Forms/PostForm.module.css";
 import ErrorMessage from "../Error/ErrorMessage";
-
 import Form from "./Form";
 import FormInput from "./FormInput";
 import SubmitButton from "./SubmitButton";

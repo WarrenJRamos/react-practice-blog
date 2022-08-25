@@ -1,6 +1,10 @@
 .create-post {
+    display: block;
+    width: 100%;
+    max-width: 275px;
+    text-align: center;
     padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
+    margin: 0 auto 1.5rem;
     color: white;
     text-decoration: none;
     border-radius: 3px;

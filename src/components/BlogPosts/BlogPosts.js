@@ -1,6 +1,6 @@
 import React from "react";
-import BlogPost from "./BlogPost";
 import classes from "../../styles/components/BlogPosts/BlogPosts.module.css";
+import BlogPost from "./BlogPost";
 
 const BlogPosts = (props) => {
     return (

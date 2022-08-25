@@ -1,10 +1,8 @@
-.header {
-    font-size: 3rem;
-    color: rgba(155, 162, 255, 1);
-}
-
-.footer a {
+.link {
     text-decoration: none;
     color: rgba(155, 162, 255, 1);
     cursor: pointer;
+    display: block;
+    text-align: center;
+    margin: 1rem;
 }

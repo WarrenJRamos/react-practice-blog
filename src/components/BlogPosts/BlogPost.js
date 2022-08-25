@@ -1,7 +1,7 @@
 import React from "react";
+import classes from "../../styles/components/BlogPosts/BlogPost.module.css";
 import BlogPostContent from "./BlogPostContent";
 import BlogPostActions from "./BlogPostActions";
-import classes from "../../styles/components/BlogPosts/BlogPost.module.css";
 
 const BlogPost = (props) => {
     return (

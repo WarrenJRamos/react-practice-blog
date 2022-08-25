@@ -4,6 +4,7 @@
     gap: 1rem;
     width: 100%;
     max-width: 760px;
+    margin: auto;
     padding: 5rem 3rem;
     box-shadow: 0px 0px 7px rgba(155, 162, 255, 1);
     background-color: inherit;

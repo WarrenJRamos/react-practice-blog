@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
+import classes from "../../styles/components/Forms/UpdateForm.module.css";
 import Form from "./Form";
 import FormInput from "./FormInput";
 import SubmitButton from "./SubmitButton";
-import classes from "../../styles/components/Forms/UpdateForm.module.css";
 
 // Didn't add any validation for this form
 // Could have stored the values in state rather than refs, but decided to go with

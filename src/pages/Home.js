@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useRequest from "../hooks/use-request";
-
 import classes from "../styles/pages/Home.module.css";
-
 import UpdateBlogPost from "../components/BlogPosts/UpdateBlogPost";
 import BlogPosts from "../components/BlogPosts/BlogPosts";
 import DeletedPostAlert from "../components/Alerts/DeletedPostAlert";
-import Header from "../components/Header/Header";
 import LoadingMessage from "../components/ProgressIndicators/LoadingMessage";
 import ErrorMessage from "../components/Error/ErrorMessage";
-import Container from "../components/Layout/Container";
+import Layout from "../components/Layout/Layout";
 
 const Home = () => {
     const { fetchData, isLoaded, setIsLoaded, error, setError } = useRequest();
@@ -31,14 +28,16 @@ const Home = () => {
     // Only run once, to retrieve all blog posts, after the component
     // has been mounted into the DOM
     useEffect(() => {
-        fetchBlogPosts().then((data) => {
-            console.log("Successfully retrieved all blog posts!");
-            setIsLoaded(true);
-            setPosts(data);
-        }).catch((err) => {
-            console.log(err.message);
-            setError(err.message);
-        });
+        fetchBlogPosts()
+            .then((data) => {
+                console.log("Successfully retrieved all blog posts!");
+                setIsLoaded(true);
+                setPosts(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+                setError(err.message);
+            });
     }, []);
 
     // Send a request to delete a blog post with the given ID
@@ -53,19 +52,21 @@ const Home = () => {
 
     // Event handler for deleting blog post
     const deleteBlogPostHandler = (id) => {
-        deleteBlogPost(id).then(() => {
-            console.log("Successfully deleted a blog post!");
-            setPosts((prevPosts) => {
-                return prevPosts.filter((prevPost) => prevPost.id !== id);
+        deleteBlogPost(id)
+            .then(() => {
+                console.log("Successfully deleted a blog post!");
+                setPosts((prevPosts) => {
+                    return prevPosts.filter((prevPost) => prevPost.id !== id);
+                });
+                setAPostHasBeenDeleted(true);
+                setTimeout(() => {
+                    setAPostHasBeenDeleted(false); //
+                }, 2000);
+            })
+            .catch((err) => {
+                console.log(err.message);
+                setError(err.message);
             });
-            setAPostHasBeenDeleted(true);
-            setTimeout(() => {
-                setAPostHasBeenDeleted(false); //
-            }, 2000);
-        }).catch((err) => {
-            console.log(err.message);
-            setError(err.message);
-        });
     };
 
     // Need to store ID of post being updated to true, so modal component is
@@ -93,24 +94,26 @@ const Home = () => {
 
     // Event handler for updating a blog post
     const updateBlogPostHandler = (updatedBlogPostData) => {
-        updateBlogPost(updatedBlogPostData).then(() => {
-            console.log("Successfully updated the blog post!");
-            setPosts((prevPosts) => {
-                return prevPosts.map((prevPost) => {
-                    if (prevPost.id === updatedBlogPostData.id) {
-                        return {
-                            ...updatedBlogPostData,
-                        };
-                    }
-                    return prevPost;
+        updateBlogPost(updatedBlogPostData)
+            .then(() => {
+                console.log("Successfully updated the blog post!");
+                setPosts((prevPosts) => {
+                    return prevPosts.map((prevPost) => {
+                        if (prevPost.id === updatedBlogPostData.id) {
+                            return {
+                                ...updatedBlogPostData,
+                            };
+                        }
+                        return prevPost;
+                    });
                 });
+                setAPostIsBeingUpdated(false);
+                setIdOfPostBeingUpdated(null);
+            })
+            .catch((err) => {
+                console.log(err.message);
+                setError(err.message);
             });
-            setAPostIsBeingUpdated(false);
-            setIdOfPostBeingUpdated(null);
-        }).catch((err) => {
-            console.log(err.message);
-            setError(err.message);
-        });
     };
 
     const closeUpdateModalHandler = () => {
@@ -123,8 +126,7 @@ const Home = () => {
         return <LoadingMessage />;
     } else {
         return (
-            <Container>
-                <Header />
+            <Layout>
                 <Link to={`create-post/`} className={classes["create-post"]}>
                     Click here to create a new post
                 </Link>
@@ -141,7 +143,7 @@ const Home = () => {
                         onUpdateFormSubmitHandler={updateBlogPostHandler}
                     />
                 )}
-            </Container>
+            </Layout>
         );
     }
 };

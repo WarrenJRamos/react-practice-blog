@@ -1,6 +1,7 @@
 .header {
     font-size: 3rem;
     color: rgba(155, 162, 255, 1);
+    text-align: center;
 }
 
 .header h1 {
