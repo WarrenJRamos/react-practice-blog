@@ -126,7 +126,7 @@ const PostForm = () => {
                 type="text"
                 ref={linkInputRef}
                 label="Link"
-                defaultValue="https://picsum.photos/360/216"
+                defaultValue="/bird.jpg"
                 className={linkControlClasses}
                 isValid={formInputsValidity.link}
             />

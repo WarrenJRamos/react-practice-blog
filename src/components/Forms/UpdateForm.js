@@ -58,7 +58,7 @@ const UpdateForm = (props) => {
                 ref={linkInputRef}
                 label="Link"
                 className={classes.control}
-                defaultValue="https://picsum.photos/360/216"
+                defaultValue="/bird.jpg"
                 isValid
             />
             <SubmitButton />

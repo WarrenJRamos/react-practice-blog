@@ -1,3 +1,7 @@
+.post--image {
+    width: 100%;
+}
+
 .post--details {
     padding: 1rem;
 }

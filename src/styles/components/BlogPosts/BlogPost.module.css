@@ -1,6 +1,7 @@
 .post {
     list-style: none;
     box-shadow: 0px 0px 2px lightgray;
+    max-width: 300px;
 }
 
 /* .post .post--details {

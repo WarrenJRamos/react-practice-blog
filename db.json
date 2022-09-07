@@ -1,16 +1,22 @@
 {
   "posts": [
     {
-      "title": "ewrwewr",
-      "description": "werwerw",
-      "link": "https://picsum.photos/360/216",
+      "title": "243432",
+      "description": "2342344",
+      "link": "/bird.jpg",
       "id": 1
     },
     {
-      "title": "false",
-      "description": "false",
-      "link": "https://picsum.photos/360/216",
+      "title": "23423423423",
+      "description": "23423423423423",
+      "link": "/bird.jpg",
       "id": 2
+    },
+    {
+      "title": "234234",
+      "description": "234234",
+      "link": "/bird.jpg",
+      "id": 3
     }
   ]
 }

@@ -14,7 +14,7 @@ const FormInput = React.forwardRef((props, ref) => {
                 type={props.type}
                 placeholder={props.placeholder}
                 defaultValue={
-                    props.name === "link" && props.defaultValue
+                    props.name === "link" ? props.defaultValue : ""
                 }
                 ref={ref}
             />
